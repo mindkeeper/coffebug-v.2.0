@@ -37,5 +37,5 @@ sequelize
   // })
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log(err));
-
+app.use("/", (req, res) => res.json({ msg: "Welcome" }));
 app.listen(3000, () => console.log(`server running at port 3000`));
