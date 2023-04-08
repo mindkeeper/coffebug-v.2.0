@@ -3,7 +3,7 @@
   "name": "coffebug",
   "builds": [
     {
-      "src": "*.js",
+      "src": "./app.js",
       "use": "@vercel/node"
     }
   ],
