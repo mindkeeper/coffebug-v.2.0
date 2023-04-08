@@ -9,5 +9,7 @@ mainRouter.get("/", (req, res) => {
     msg: "Welcome",
   });
 });
-
+mainRouter.get("/welcome", (req, res) =>
+  res.status(200).json({ msg: "welcome" })
+);
 module.exports = mainRouter;
