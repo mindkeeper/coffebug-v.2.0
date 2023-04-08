@@ -35,9 +35,7 @@ sequelize
   // .then(() => {
   //   return Role.create({ name: "Owner" });
   // })
-  .then(() =>
-    app.listen(process.env.PORT, () =>
-      console.log(`server running at port ${process.env.PORT}`)
-    )
-  )
+  .then(() => console.log("DB Connected"))
   .catch((err) => console.log(err));
+
+app.listen(3000, () => console.log(`server running at port 3000`));
