@@ -38,6 +38,6 @@ sequelize
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log(err));
 
-app.listen(3000, () =>
+app.listen(process.env.PORT, () =>
   console.log(`server running at port ${process.env.PORT}`)
 );
