@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/sequelize");
+const User = require("./user");
 
 const Token = sequelize.define("token", {
   id: {
@@ -13,5 +14,4 @@ const Token = sequelize.define("token", {
     allowNull: false,
   },
 });
-
 module.exports = Token;

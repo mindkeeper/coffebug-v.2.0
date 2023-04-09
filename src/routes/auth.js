@@ -10,5 +10,6 @@ const isLogin = require("../middlewares/validations/isLogin");
 Route.post("/register", allowedBody(registerSchema), register);
 Route.post("/login", allowedBody(loginSchema), login);
 Route.delete("/logout", isLogin, logout);
+Route.post("/forgot-password");
 
 module.exports = Route;

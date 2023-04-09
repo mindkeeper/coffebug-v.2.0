@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/sequelize");
+const User = require("./user");
 
 const Profile = sequelize.define(
   "profile",
@@ -22,4 +23,5 @@ const Profile = sequelize.define(
     underscored: true,
   }
 );
+
 module.exports = Profile;
