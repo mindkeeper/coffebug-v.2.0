@@ -32,12 +32,14 @@ app.use(express.json());
 app.use(responseMiddleware);
 app.use(mainRouter);
 cron.schedule("* * 1 * *", removeAccessToken);
+app.get("/", (req, res) => res.json({ msg: "Welcome" }));
+
 sequelize
   .sync()
   // .then(() => {
   //   return Role.create({ name: "Owner" });
   // })
-  .then(() => console.log("DB Connected"))
+  .then(() =>
+    app.listen(3000, () => console.log(`server running at port 3000`))
+  )
   .catch((err) => console.log(err));
-app.get("/", (req, res) => res.json({ msg: "Welcome" }));
-app.listen(3000, () => console.log(`server running at port 3000`));
