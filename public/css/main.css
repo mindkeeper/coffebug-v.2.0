@@ -1,0 +1,34 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 800px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.main-logo {
+  width: 10rem;
+  aspect-ratio: 3/4;
+}
+p {
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+p span {
+  font-weight: bold;
+}

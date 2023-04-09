@@ -1,6 +1,6 @@
 require("dotenv").config();
 require("pg");
-require("pg-hstore");
+const path = require("path");
 const express = require("express");
 
 const cors = require("cors");
@@ -25,6 +25,9 @@ Permission.belongsToMany(Role, { through: RolePermissions });
 Token.belongsTo(User);
 User.hasOne(Token);
 
+app.set("view engine", "ejs");
+app.set("views", "src/views");
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({ origin: "*" }));
 app.use(express.raw());
@@ -34,6 +37,9 @@ app.use(mainRouter);
 cron.schedule("* * 1 * *", removeAccessToken);
 app.get("/", (req, res) => res.json({ msg: "Welcome" }));
 
+app.get("/testing", (req, res) =>
+  res.status(200).render("forgot-password", { title: "forgot passwprd" })
+);
 sequelize
   .sync()
   // .then(() => {
