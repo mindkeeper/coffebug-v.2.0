@@ -1,4 +1,6 @@
 require("dotenv").config();
+require("pg");
+require("pg-hstore");
 const express = require("express");
 
 const cors = require("cors");
