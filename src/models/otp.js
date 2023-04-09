@@ -9,6 +9,7 @@ const Otp = sequelize.define(
       type: DataTypes.UUID,
       primaryKey: true,
       allowNull: false,
+      defaultValue: DataTypes.UUIDV4,
     },
     code: {
       type: DataTypes.STRING,
@@ -30,5 +31,5 @@ const Otp = sequelize.define(
   }
 );
 
-Otp.belongsTo(User)
+Otp.belongsTo(User);
 module.exports = Otp;
