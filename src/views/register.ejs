@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <h2>Dear <%=data.user.username%>,</h2>
+      <p>
+        Thank you for registering your email with us! We're excited to have you
+        as a part of our community. To complete the registration process and
+        verify your email address, please click the following
+        <span
+          ><a
+            href="http://localhost:3000/api/auth/verify/<%=data.user.registerToken%>"
+            >Link</a
+          ></span
+        >. Once you click the link, your email address will be verified and
+        you'll be able to start using our services. If you didn't register your
+        email with us, or if you have any questions or concerns, please contact
+        us at coffebug@example.com. Thank you again for choosing to register
+        your email with us. We look forward to serving you! Best regards,
+      </p>
+      <p>Coffebug</p>
+    </main>
+  </body>
+</html>
