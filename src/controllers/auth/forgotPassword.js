@@ -16,6 +16,8 @@ const forgotPassword = async (req, res, next) => {
 
     if (!user)
       return res.sendClientError(400, "email/username isn't registered");
+    if (!user.verified)
+      return res.sendClientError(401, "Please verify your email first");
     const activeOtps = await user.getOtps({
       where: { status: "Active" },
       transaction: t,
@@ -36,7 +38,7 @@ const forgotPassword = async (req, res, next) => {
       transaction: t,
     });
     const subject = `Resetting your password - ${data.code}`;
-    const sendEmail = await emailSender(data, subject);
+    const sendEmail = await emailSender(data, subject, "forgot-password.ejs");
     t.commit();
     return res.sendSuccess(200, sendEmail);
   } catch (error) {
