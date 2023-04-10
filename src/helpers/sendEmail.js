@@ -32,7 +32,6 @@ const sendEmail = (userData, subject, html) =>
       },
     });
     const p = path.join(__dirname, "..", "views", html);
-    console.log(p);
     ejs.renderFile(p, { data: userData, subject }, (err, data) => {
       if (err) {
         console.log(err);
