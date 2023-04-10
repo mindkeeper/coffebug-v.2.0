@@ -22,8 +22,10 @@ const login = async (req, res, next) => {
         transaction: t,
       });
     }
-    if (!user) return res.sendClientError(401, "Email/Password is Wrong");
 
+    if (!user) return res.sendClientError(401, "Email/Password is Wrong");
+    if (!user.verified)
+      return res.sendClientError(401, "Please Verify your email");
     const checkPassword = await bcrypt.compare(password, user.password);
     if (!checkPassword)
       return res.sendClientError(401, "Email/Password is Wrong");
