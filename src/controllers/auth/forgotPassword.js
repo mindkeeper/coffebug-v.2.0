@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const sequelize = require("../../config/sequelize");
 const { generateOtp } = require("../../helpers/generateOtp");
 const { User, Otp } = require("../../models/associations");
+const emailSender = require("../../helpers/sendEmail");
 const forgotPassword = async (req, res, next) => {
   const t = await sequelize.transaction();
   try {
@@ -30,8 +31,14 @@ const forgotPassword = async (req, res, next) => {
       { code: generateOtp().toString(), userId: user.id },
       { transaction: t }
     );
+    const data = await Otp.findByPk(newOtp.id, {
+      include: [{ model: User, attributes: ["id", "email", "username"] }],
+      transaction: t,
+    });
+    const subject = `Resetting your password - ${data.code}`;
+    const sendEmail = await emailSender(data, subject);
     t.commit();
-    return res.sendSuccess(200, { newOtp });
+    return res.sendSuccess(200, sendEmail);
   } catch (error) {
     console.log(error);
     t.rollback();
