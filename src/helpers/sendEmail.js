@@ -17,7 +17,7 @@ const OAuth2Client = new OAuth2({
 
 OAuth2Client.setCredentials({ refresh_token: refreshToken });
 
-const sendEmail = (userData, subject) =>
+const sendEmail = (userData, subject, html) =>
   new Promise((resolve, reject) => {
     const accessToken = OAuth2Client.getAccessToken;
     const transporter = nodemailer.createTransport({
@@ -31,7 +31,8 @@ const sendEmail = (userData, subject) =>
         accessToken,
       },
     });
-    const p = path.join(__dirname, "..", "views", "forgot-password.ejs");
+    const p = path.join(__dirname, "..", "views", html);
+    console.log(p);
     ejs.renderFile(p, { data: userData, subject }, (err, data) => {
       if (err) {
         console.log(err);
