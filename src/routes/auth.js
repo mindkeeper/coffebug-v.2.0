@@ -10,11 +10,13 @@ const forgotPassword = require("../controllers/auth/forgotPassword");
 const allowedBody = require("../middlewares/validations/allowedBody");
 const isLogin = require("../middlewares/validations/isLogin");
 const resetPassword = require("../controllers/auth/resetPassword");
+const verifyUser = require("../controllers/auth/verifyUser");
 
 Route.post("/register", allowedBody(registerSchema), register);
 Route.post("/login", allowedBody(loginSchema), login);
 Route.delete("/logout", isLogin, logout);
 Route.post("/forgot-password", allowedBody(forgotSchema), forgotPassword);
 Route.patch("/reset-password", allowedBody(resetPasswordSchema), resetPassword);
+Route.get("/verify/:token", verifyUser);
 
 module.exports = Route;
