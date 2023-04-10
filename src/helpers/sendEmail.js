@@ -3,7 +3,6 @@ const nodemailer = require("nodemailer");
 const path = require("path");
 const ejs = require("ejs");
 const { google } = require("googleapis");
-const rootDir = require("./rootDir");
 const clientId = process.env.GOOGLE_CLIENT_ID;
 const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
 const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
@@ -32,7 +31,7 @@ const sendEmail = (userData, subject) =>
         accessToken,
       },
     });
-    const p = path.join(rootDir, "src", "views", "forgot-password.ejs");
+    const p = path.join(__dirname, "..", "views", "forgot-password.ejs");
     ejs.renderFile(p, { data: userData, subject }, (err, data) => {
       if (err) {
         console.log(err);
