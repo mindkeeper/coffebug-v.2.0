@@ -6,6 +6,8 @@ const User = require("../../models/user");
 const Role = require("../../models/role");
 const Profile = require("../../models/profile");
 const sequelize = require("../../config/sequelize");
+const sendEmail = require("../../helpers/sendEmail");
+const { generateOtp } = require("../../helpers/generateOtp");
 const register = async (req, res) => {
   const t = await sequelize.transaction();
   try {
@@ -27,6 +29,11 @@ const register = async (req, res) => {
       if (existingUser[0].phone === phone) message = "Phone already exists";
       if (existingUser[0].username === username)
         message = "Username already exists";
+      if (
+        existingUser[0].username === username ||
+        (existingUser[0].email === email && !existingUser[0].verified)
+      )
+        message = "account already registered, please verify your email";
       return res.sendClientError(400, message);
     }
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -41,6 +48,7 @@ const register = async (req, res) => {
         phone,
         password: hashedPassword,
         roleId: role.id,
+        registerToken: generateOtp(),
         profile: {
           firstName,
           lastName,
@@ -61,7 +69,10 @@ const register = async (req, res) => {
       transaction: t,
     });
     await t.commit();
-    return res.sendSuccess(201, response);
+    await sendEmail({ user: response }, "Verify Your Account", "register.ejs");
+    return res.sendSuccess(201, {
+      msg: "Registration Success, please check your email!",
+    });
   } catch (error) {
     console.log(error);
     t.rollback();
