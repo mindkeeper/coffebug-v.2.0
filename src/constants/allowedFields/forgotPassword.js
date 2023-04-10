@@ -5,6 +5,12 @@ const forgotPassword = joi.object({
     .trim()
     .required()
     .messages({ "any.required": "Email or Username Cannot be Empty" }),
+
+  redirectPage: joi
+    .string()
+    .trim()
+    .required()
+    .messages({ "any.required": "Please Input your page link" }),
 });
 
 module.exports = forgotPassword;
