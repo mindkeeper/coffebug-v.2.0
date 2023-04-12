@@ -2,7 +2,7 @@ require("dotenv").config();
 require("pg");
 const path = require("path");
 const express = require("express");
-
+const morgan = require("morgan");
 const cors = require("cors");
 const sequelize = require("./src/config/sequelize");
 const mainRouter = require("./src/routes/main");
@@ -33,8 +33,8 @@ app.use(mainRouter);
 cron.schedule("* * 1 * *", removeAccessToken);
 app.get("/", (req, res) => res.json({ msg: "Welcome" }));
 
-app.get("/testing", (req, res) =>
-  res.status(200).render("forgot-password", { title: "forgot passwprd" })
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms")
 );
 sequelize
   .sync()
