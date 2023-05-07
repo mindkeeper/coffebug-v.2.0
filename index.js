@@ -9,7 +9,7 @@ const mainRouter = require("./src/routes/main");
 const responseMiddleware = require("./src/helpers/sendResponse");
 const cron = require("node-cron");
 const removeAccessToken = require("./src/helpers/removeAccessToken");
-
+const categories = ["Coffee", "Non-Coffee", "Foods", "Others"];
 const {
   User,
   Profile,
@@ -38,9 +38,6 @@ app.use(
 );
 sequelize
   .sync()
-  // .then(() => {
-  //   return Role.create({ name: "Owner" });
-  // })
   .then(() =>
     app.listen(3000, () => console.log(`server running at port 3000`))
   )
