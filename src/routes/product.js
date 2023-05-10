@@ -5,6 +5,7 @@ const productSchema = require("../constants/allowedFields/product");
 const Route = require("express").Router();
 const allowedBody = require("../middlewares/validations/allowedBody");
 const editProduct = require("../controllers/product/editProduct");
+const getAll = require("../controllers/product/getAll");
 Route.post(
   "/new",
   uploadFile("images", 10),
@@ -20,4 +21,5 @@ Route.patch(
   editProduct
 );
 
+Route.get("/", getAll);
 module.exports = Route;
