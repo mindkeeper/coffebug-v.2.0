@@ -43,8 +43,11 @@ const getAll = async (req, res) => {
     if (sortBy === "priciest") orderClause.push(["price", "DESC"]);
     if (sortBy === "newest") orderClause.push(["createdAt", "DESC"]);
     if (sortBy === "oldest") orderClause.push(["createdAt", "ASC"]);
-
-    const { count, rows: products } = await Product.findAndCountAll({
+    const totalData = await Product.count({
+      where: whereClause,
+      transaction: t,
+    });
+    const products = await Product.findAll({
       where: whereClause,
       order: orderClause,
       attributes: { exclude: ["categoryId"] },
@@ -57,7 +60,7 @@ const getAll = async (req, res) => {
       transaction: t,
     });
 
-    const paginatiion = paginate(count, limit, page);
+    const pagination = paginate(totalData, limit, page);
     const formattedResponse = products.map((product) => {
       const { productImages, ...rest } = product.toJSON();
       return {
@@ -69,7 +72,7 @@ const getAll = async (req, res) => {
     await t.commit();
     return res.sendSuccess(200, {
       products: formattedResponse,
-      ...paginatiion,
+      ...pagination,
     });
   } catch (error) {
     console.log(error);

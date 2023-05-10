@@ -1,5 +1,5 @@
 const paginate = (totalData, limit, currentPage) => {
-  const totalPage = Math.ceil(totalData / 2 / limit);
+  const totalPage = Math.ceil(totalData / limit);
   const hasNextPage = currentPage < totalPage;
   const hasPrevPage = currentPage > 1;
 
